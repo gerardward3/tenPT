@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
+import { render } from 'react-dom';
 
-ReactDOM.render(
-    <Box mx="auto" p={1}>
-        <Button>Hello</Button>
-    </Box>,
+import App from './App';
+
+render(
+    <App />,
     document.getElementById('root')
 )
