@@ -1,17 +1,17 @@
 import React from 'react';
-import './App.css';
+import { Container } from '@material-ui/core';
 
+import './App.css';
 import { TaskBench } from './components/TaskBench/TaskBench';
-import { Timer } from './components/Timer';
-import { ControlBar } from './components/ControlBar';
+import { Timer } from './components/Timer/Timer';
+import { ControlBar } from './components/ControlBar/ControlBar';
+
 
 function App() {
   return (
     <div>
-      <div>
-        <TaskBench />
-      </div>
-      <div style={{paddingLeft: 100}}>
+      <TaskBench />
+      <div className="main">
         <Timer />
         <ControlBar />
       </div>

@@ -1,0 +1,8 @@
+.ControlBar{
+    display: inline-block;
+    flex: auto;
+    position: relative;
+    display: flex;
+    padding-top: 5%;
+    justify-content: space-evenly 
+}
