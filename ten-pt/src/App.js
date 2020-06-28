@@ -1,5 +1,4 @@
-import React from 'react';
-import { Container } from '@material-ui/core';
+import React, { useState } from 'react';
 
 import './App.css';
 import { TaskBench } from './components/TaskBench/TaskBench';
@@ -8,12 +7,18 @@ import { ControlBar } from './components/ControlBar/ControlBar';
 
 
 function App() {
+  const [startState, setStartState] = useState(false);
+  const handleControlEvent = () => {
+    setStartState(!startState);
+    console.log('hello from this button!')
+  }
+
   return (
     <div>
       <TaskBench />
       <div className="main">
         <Timer />
-        <ControlBar />
+        <ControlBar startState={handleControlEvent}/>
       </div>
     </div>
   );

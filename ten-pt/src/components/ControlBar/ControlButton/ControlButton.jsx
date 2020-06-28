@@ -5,6 +5,12 @@ import './ControlButton.css'
 
 export const ControlButton = (props) => {
     return(
-        <Button className="controlButton" variant="contained" color="primary">{props.buttonName}</Button>
+        <Button 
+            className="controlButton" 
+            variant="contained" 
+            color="primary" 
+            onClick={props.onClick}
+            >{props.buttonName} 
+        </Button>
     )
 }
