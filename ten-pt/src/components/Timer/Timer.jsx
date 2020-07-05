@@ -5,31 +5,29 @@ import Countdown, { zeroPad } from 'react-countdown';
 import './Timer.css'
 
 export const Timer = (props) => {
-    const startDate = Date.now() + 10000;
     const [hasBeenReset, setHasBeenReset] = useState(false);
-    const [date, setDate] = useState(startDate)
+    const [date, setDate] = useState(Date.now() + 10000)
 
     const renderer = props => {
         return <CoundownTimer {...props} />
     }
-
-    const handleReset = () => {
-        setDate(startDate);
-    }
     
     const CoundownTimer = ({hours, minutes, seconds, api}) => {
         useEffect(() => {
-            if(props.start) {
+            console.log(api.isPaused());
+            if(props.start && api.isPaused()) {
                 api.start();
+                setHasBeenReset(false);
             }
-            if(props.pause && !api.isPaused()) {
+            if(props.pause && !api.isPaused() && !hasBeenReset) {
                 api.pause();
             }
             if(props.reset && !hasBeenReset) { 
                 if(!api.isPaused()) {
                     api.pause();
                 }
-                handleReset();
+                setDate(Date.now() + 10000);
+                console.log(date);
                 setHasBeenReset(true);
             }
         }, [api]);
@@ -40,8 +38,10 @@ export const Timer = (props) => {
         <div className="timerBox">
             <div className="timeText">
                 <Countdown 
+                  key = {date}
                   date = {date} 
                   renderer = {renderer} 
+                  controlled = {false}
                   autoStart = {false}
                 />
             </div>
