@@ -15,9 +15,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import StopIcon from '@material-ui/icons/Stop';
 import { findByLabelText } from '@testing-library/react';
+import { SketchPicker } from 'react-color'
 
 export const TaskBench = () => {
     const [open, setOpen] = useState(false);
+    const [colourPickerOpen, setColourPickerOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -53,26 +55,29 @@ export const TaskBench = () => {
                         fullWidth
                     />
                 </DialogContent>
+                <DialogContent>
+                    <SketchPicker />
+                </DialogContent>
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                     <DialogContent>
                         <TextField
                             margin="dense"
-                            id="taskName"
-                            label="Task"
+                            id="hours"
+                            label="Hours"
                         />
                     </DialogContent>
                     <DialogContent>
                         <TextField
                             margin="dense"
-                            id="taskName"
-                            label="Task"
+                            id="minutes"
+                            label="Minutes"
                         />
                     </DialogContent>
                     <DialogContent>
                         <TextField
                             margin="dense"
-                            id="taskName"
-                            label="Task"
+                            id="seconds"
+                            label="Seconds"
                         />
                     </DialogContent>
                 </div>
