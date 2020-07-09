@@ -29,6 +29,10 @@ export const TaskBench = () => {
         setOpen(false);
     };
 
+    const handleColourPickerClick = () => {
+        setColourPickerOpen(!colourPickerOpen);
+    }
+
     return (
         <div>
             <Drawer variant="permanent">
@@ -56,8 +60,10 @@ export const TaskBench = () => {
                     />
                 </DialogContent>
                 <DialogContent>
-                    <SketchPicker />
+                    <button onClick={handleColourPickerClick} />
+                    {colourPickerOpen ? <SketchPicker /> : null}
                 </DialogContent>
+                
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                     <DialogContent>
                         <TextField
