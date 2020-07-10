@@ -4,24 +4,27 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Drawer from '@material-ui/core/Drawer';
-import Icon from '@material-ui/core/Icon';
 import AddIcon from '@material-ui/icons/Add';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import StopIcon from '@material-ui/icons/Stop';
-import { findByLabelText } from '@testing-library/react';
-import { SketchPicker } from 'react-color'
+import { CirclePicker } from 'react-color'
 
 export const TaskBench = () => {
+    const defaultColour = '#2196f3';
+    const [taskList, setTaskList] = useState([{name:'tasktest', colour:'#123456'}]);
+    const [background, setBackground] = useState(defaultColour)
     const [open, setOpen] = useState(false);
     const [colourPickerOpen, setColourPickerOpen] = useState(false);
+    const [taskName, setTaskName] = useState('Task');
+    const [taskColour, setTaskColour] = useState(defaultColour);
 
     const handleClickOpen = () => {
+        console.log(taskList);
         setOpen(true);
     };
 
@@ -29,20 +32,30 @@ export const TaskBench = () => {
         setOpen(false);
     };
 
+    const handleCreateTask = () => {
+        setOpen(false);
+        setTaskColour(background);
+        setTaskList(taskList.concat([{name: taskName, colour:background}]));
+        console.log(taskList);
+    }
+
     const handleColourPickerClick = () => {
         setColourPickerOpen(!colourPickerOpen);
     }
 
+    const handleChangeComplete = (color) => {
+        setBackground(color.hex);
+      };
     return (
         <div>
             <Drawer variant="permanent">
                 <List>
-                    {['Item 1', 'Item 2', 'Item 3', 'Item 4'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>
+                    {taskList.map((index) => (
+                        <ListItem button key={index.name}>
+                            <ListItemIcon style={{color:index.colour}}>
                                 <StopIcon />
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText primary={index.name} />
                         </ListItem>
                     ))}
                 </List>
@@ -60,8 +73,11 @@ export const TaskBench = () => {
                     />
                 </DialogContent>
                 <DialogContent>
-                    <button onClick={handleColourPickerClick} />
-                    {colourPickerOpen ? <SketchPicker /> : null}
+                    <button style={{height:'20px', backgroundColor:background}} onClick={handleColourPickerClick} />
+                    {colourPickerOpen ? <CirclePicker 
+                        color={ background }
+                        onChangeComplete={ handleChangeComplete }/> 
+                    : null}
                 </DialogContent>
                 
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -91,8 +107,8 @@ export const TaskBench = () => {
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Subscribe
+                    <Button onClick={handleCreateTask} color="primary">
+                        Create
                     </Button>
                 </DialogActions>
             </Dialog>
