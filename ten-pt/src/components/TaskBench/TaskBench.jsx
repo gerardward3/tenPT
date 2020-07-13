@@ -17,11 +17,10 @@ import { CirclePicker } from 'react-color'
 export const TaskBench = () => {
     const defaultColour = '#2196f3';
     const [taskList, setTaskList] = useState([{name:'tasktest', colour:'#123456'}]);
-    const [background, setBackground] = useState(defaultColour)
+    const [taskColour, setTaskColour] = useState(defaultColour)
     const [open, setOpen] = useState(false);
     const [colourPickerOpen, setColourPickerOpen] = useState(false);
     const [taskName, setTaskName] = useState('Task');
-    const [taskColour, setTaskColour] = useState(defaultColour);
 
     const handleClickOpen = () => {
         console.log(taskList);
@@ -34,9 +33,7 @@ export const TaskBench = () => {
 
     const handleCreateTask = () => {
         setOpen(false);
-        setTaskColour(background);
-        setTaskList(taskList.concat([{name: taskName, colour:background}]));
-        console.log(taskList);
+        setTaskList(taskList.concat([{name: taskName, colour:taskColour}]));
     }
 
     const handleColourPickerClick = () => {
@@ -44,8 +41,12 @@ export const TaskBench = () => {
     }
 
     const handleChangeComplete = (color) => {
-        setBackground(color.hex);
+        setTaskColour(color.hex);
       };
+
+    const handleTaskNameChange = (event) => {
+        setTaskName(event.target.value);
+    }
     return (
         <div>
             <Drawer variant="permanent">
@@ -70,12 +71,13 @@ export const TaskBench = () => {
                         id="taskName"
                         label="Task Name"
                         fullWidth
+                        onChange={ handleTaskNameChange }
                     />
                 </DialogContent>
                 <DialogContent>
-                    <button style={{height:'20px', backgroundColor:background}} onClick={handleColourPickerClick} />
+                    <button style={{height:'20px', backgroundColor:taskColour}} onClick={handleColourPickerClick} />
                     {colourPickerOpen ? <CirclePicker 
-                        color={ background }
+                        color={ taskColour }
                         onChangeComplete={ handleChangeComplete }/> 
                     : null}
                 </DialogContent>
